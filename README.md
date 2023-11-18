@@ -1,1 +1,1 @@
-# conformal_diagrams
+# Penrose diagrams for time slices
