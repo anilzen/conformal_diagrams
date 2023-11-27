@@ -15,13 +15,15 @@ def penrose_coords(r, t):
                    np.sqrt(1 - r) * np.exp(r / 2) * np.sinh(t / 2))
     tau = np.where(condition, np.sqrt(r - 1) * np.exp(r / 2) * np.sinh(t / 2),
                    np.sqrt(1 - r) * np.exp(r / 2) * np.cosh(t / 2))
+    # rho = np.sqrt(r - 1) * np.exp(r / 2) * np.cosh(t / 2)
+    # tau = np.sqrt(r - 1) * np.exp(r / 2) * np.sinh(t / 2)
     R = 2./np.pi*(np.arctan(tau+rho)-np.arctan(tau-rho))
     T = 2./np.pi*(np.arctan(tau+rho)+np.arctan(tau-rho))
     return R, T
 
 # Set height function
 def set_height(surface_type, r):
-    r_tort = r + np.log(np.abs(r-1)); 
+    r_tort =  r + np.log(np.abs(r-1)); 
     if surface_type == "standard":
         height = 0
     elif surface_type == "outgoing_null":
@@ -38,6 +40,8 @@ def set_height(surface_type, r):
         height = np.sqrt(1 + r_tort**2)
     elif surface_type == "gullstrand_painleve":
         height = 2*np.sqrt(r) - np.log( np.abs((np.sqrt(r)+1)/(np.sqrt(r)-1)) )
+    elif surface_type == "ingoing_EF":
+        height = np.log(np.abs(r-1))
     elif surface_type == "minimal_gauge":
         height = - r - 2*np.log(r) + np.log(np.abs(r - 1)) + 2
     else:
@@ -52,7 +56,7 @@ r_in = 0.5 * (-np.cos((np.arange(nr_points) * np.pi) / (nr_points - 1)) + 1)[1:-
 r_out = np.real(lambertw(np.exp(r_tort-1))+1)[1:]
 r = np.concatenate((r_in, r_out))
 
-height =  set_height("minimal_gauge", r)
+height =  set_height("ingoing_EF", r)
 
 # Create an array to store the data
 all_data = np.empty((len(r), 2 * len(t)))

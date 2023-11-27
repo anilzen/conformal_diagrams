@@ -30,8 +30,8 @@
         \node[above] at (NE) {$i^+$};
         \node[below] at (SW) {$i^-$};
         \node[below] at (SE) {$i^-$};
-        \node[above, rotate=90] at (axis cs:0,0) {\small{$r=0$}};
-        \node[below, rotate=90] at (axis cs:2,0) {\small{$r=0$}};
+        \node[above, rotate=90] at (axis cs:0,0) {North Pole}; %{\small{$r=0$}};
+        \node[below, rotate=90] at (axis cs:2,0) {South Pole}; %{\small{$r=0$}};
         \node[above right] at (axis cs:0.5,0.5) {$\mathscr{H}_c^+$};
         \node[below right] at (axis cs:0.5,-0.5) {$\mathscr{H}_c^-$};
         
@@ -39,6 +39,11 @@
     \foreach \i in {0,...,6} {
         \addplot[domain={-1:1}] table [x=R_\i, y=T_\i, col sep=comma] {data/deSitter.csv};
     }
+
+    % Read and plot each line separately
+    % \foreach \i in {7,...,12} {
+    %     \addplot[domain={-1:1}] table [x=R_\i, y=T_\i, col sep=comma] {data/deSitter.csv};
+    % }
 
     \end{axis}
     \end{tikzpicture}
